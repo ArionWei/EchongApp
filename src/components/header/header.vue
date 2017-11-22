@@ -2,11 +2,11 @@
   <div class="header">
     <div class="headerWrap">
       <div class="headerTop">
-        <div class="left">
+        <div class="left" @click="toggleShow(true)">
           <a class="option">
-            <span>狗狗站</span>
+            <span>{{animal}}</span>
             <span>|</span>
-            <span class="little">北京</span>
+            <span class="little">{{province}}</span>
             <span class="icon-triangle-down"></span>
           </a>
         </div>
@@ -32,13 +32,27 @@
         </div>
       </div>
     </div>
+    <choice :toggleShow="toggleShow" :toggleAnimal="toggleAnimal" v-show="isShow"></choice>
   </div>
 </template>
 
 <script>
+  import PubSub from 'pubsub-js'
   import BScroll from 'better-scroll'
+  import choice from '../../components/choice/choice.vue'
   export default {
+    data(){
+      return {
+        isShow: false,
+        province: '北京市',
+        animal: '狗狗站'
+      }
+    },
     mounted(){
+      PubSub.subscribe('setAddress', (msg, data) => {
+        this.province = data.province
+      })
+
       this.$nextTick(function () {
         const wrapper = document.querySelector('.nav')
         const scroll = new BScroll(wrapper, {
@@ -46,6 +60,17 @@
           scrollX: true
         })
       })
+    },
+    methods: {
+      toggleShow (isShow) {
+        this.isShow = isShow
+      },
+      toggleAnimal(animal){
+        this.animal = animal
+      }
+    },
+    components: {
+      choice
     }
   }
 </script>
@@ -79,7 +104,7 @@
 
         & > .middle > input
           font-size 13px
-          width 220px
+          width 180px
           border 0
           height 25px
           background #e9e9e9

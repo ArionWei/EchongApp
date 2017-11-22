@@ -299,9 +299,9 @@
         const wrapper2 = document.querySelector('.surprise-pro')
 
         setTimeout(() => {
-          new BScroll(wrapper1, {click: true})
+          new BScroll(wrapper1, {click: true, swipeTime: 1000})
           new BScroll(wrapper2, {scrollX: true, click: true})
-        }, 200)
+        }, 0)
       })
     },
     components: {

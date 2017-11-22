@@ -57,7 +57,7 @@
       left: 0;
       border-top: 1px solid #e7e7e7;
       background-color: #fff;
-      z-index: 66;
+      z-index: 555;
       .footerNav
         overflow hidden
         height 100%

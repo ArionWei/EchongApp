@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "echong-app",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "ArionWei <dong378809@163.com>",
@@ -14,6 +14,8 @@
     "axios": "^0.17.1",
     "better-scroll": "^1.4.2",
     "mint-ui": "^2.2.10",
+    "pubsub-js": "^1.5.7",
+    "v-distpicker": "^1.0.12",
     "vue": "^2.5.2",
     "vue-resource": "^1.3.4",
     "vue-router": "^3.0.1",

@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import VDistpicker from 'v-distpicker'
 import {Swipe, SwipeItem, Button, Field} from 'mint-ui'
 import '../static/css/reset.css'
 import  './common/stylus/index.styl'
 
+Vue.component('v-distpicker', VDistpicker)
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Button.name, Button);

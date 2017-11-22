@@ -40,7 +40,7 @@
     width 100%
     height 100%
     background-color: #eee;
-    z-index 999
+    z-index 99
     .cartWrap
       width 100%
       background-color: #fff;

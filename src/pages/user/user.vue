@@ -66,7 +66,7 @@
     width 100%
     height 100%
     background-color: #eee;
-    z-index 999
+    z-index 222
     .userWrap
       width 100%
       background-color: #fff;
@@ -112,7 +112,8 @@
 
           .mint-cell-wrapper
             border-bottom 1px solid #eee
-            input::-webkit-input-placeholder
+            input:
+            :-webkit-input-placeholder
               font-size 13px
               color #aaa
           span.icon-triangle-down

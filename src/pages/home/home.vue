@@ -296,14 +296,12 @@
     mounted(){
       this.$nextTick(function () {
         const wrapper1 = document.querySelector('.home_warp')
-        const scroll1 = new BScroll(wrapper1, {
-          click: true
-        })
         const wrapper2 = document.querySelector('.surprise-pro')
-        const scroll2 = new BScroll(wrapper2, {
-          scrollX: true,
-          click: true
-        })
+
+        setTimeout(() => {
+          new BScroll(wrapper1, {click: true})
+          new BScroll(wrapper2, {scrollX: true, click: true})
+        }, 200)
       })
     },
     components: {
@@ -323,9 +321,9 @@
       overflow: hidden
       .container
         width 100%
-        height 2850px
+        padding-bottom 20px
         .carousel
-          height 160px
+          height 150px
           overflow hidden
           img
             width 100%
@@ -361,15 +359,15 @@
                 width 67px
           .surprise-pro
             width 100%
-            padding 5px
-            overflow hidden
             .swiper-wrapper
+              display flex
               padding 5px
               width 200%
               li
-                width 70px
+                width 28%
                 height 115px
-                margin 0 15px
+                padding 0 15px
+                margin-bottom 10px
                 float left
                 text-align center
                 img

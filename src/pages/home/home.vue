@@ -316,13 +316,14 @@
   .home
     width 100%
     height 100%
-    overflow hidden
+    transform translate3d()
     .home_warp
       width 100%
       height 100%
+      overflow: hidden
       .container
         width 100%
-        height 3000px
+        height 2850px
         .carousel
           height 160px
           overflow hidden

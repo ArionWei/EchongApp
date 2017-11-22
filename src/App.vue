@@ -42,10 +42,13 @@
     max-width 640px
     margin auto
     height 100%
-    /*position relative*/
+    position relative
     overflow hidden
     .wrap
-      height 100%
+      position: absolute
+      top: 86px
+      bottom: 45px
+      width: 100%
     .footer
       width 100%
       height 45px
@@ -54,7 +57,7 @@
       left: 0;
       border-top: 1px solid #e7e7e7;
       background-color: #fff;
-      z-index: 11;
+      z-index: 66;
       .footerNav
         overflow hidden
         height 100%
@@ -72,7 +75,9 @@
             span
               font-size 13px
         .router-link-active li
-          background-color #eee
+          height 100%
+          & p, & span
+            color green
 
 
 </style>

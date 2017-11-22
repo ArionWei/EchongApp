@@ -45,8 +45,10 @@
           city: data.city.value,
           area: data.area.value
         }
+        setTimeout(() => {
+          this.toggleShow(false)
+        },500)
         this.address = address
-        this.toggleShow(false)
         PubSub.publish('setAddress', {province: data.province.value});
       },
 

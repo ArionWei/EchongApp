@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import VDistpicker from 'v-distpicker'
 import {Swipe, SwipeItem, Button, Field} from 'mint-ui'
+import './mock/mockServer'
 import '../static/css/reset.css'
 import  './common/stylus/index.styl'
 
@@ -15,5 +17,6 @@ Vue.component(Field.name, Field);
 new Vue({
   el: '#app',
   render: h => h(App),
-  router  // 配置路由器
+  router,  // 配置路由器
+  store //配置vuex
 })

@@ -1,5 +1,3 @@
 export default {
-  goods: [],
-  ratings: [],
-  seller: {}
+  classify: []
 }

@@ -17,7 +17,11 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    mounted(){
+      this.$store.dispatch('getClassify')
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

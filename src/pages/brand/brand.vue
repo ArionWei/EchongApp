@@ -2,126 +2,37 @@
   <div class="brands">
     <div class="menu-wrapper">
       <ul>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
-        </li>
-        <li>
-          <span>为您推荐</span>
+        <li :class="{active:classifyId == index}" v-for="(classy,index) in classify" :key="index"
+            @click="toggleClaId(index)">
+          <span>{{classy.name}}</span>
         </li>
       </ul>
     </div>
     <div class="detail-list">
-      <div class="detail-wrap">
+      <div class="detail-wrap" v-for="(classy,index) in classify" v-if="classifyId == index" :key="index">
         <div class="detail-brand common">
           <div class="title">
-            <span>狗狗生活</span>
+            <span>{{classy.category[0].name}}</span>
             <img src="./cate_right_img.png">
           </div>
-          <div class="detail">
+          <div class="detail" v-if="classy.category[0]">
             <ul>
-              <li>
-                <img src="./f1.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./f2.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./f3.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./f4.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./f5.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./f6.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./f7.jpg" alt="">
-                <p>狗狗餐具</p>
+              <li v-for="(item,index) in classy.category[0].items" :key="index">
+                <img :src="item.image">
+                <p>{{item.itemName}}</p>
               </li>
             </ul>
           </div>
         </div>
-        <div class="trademark common">
+        <div class="trademark common" v-if="classy.category[1]">
           <div class="title">
-            <span>热门品牌</span>
+            <span>{{classy.category[1].name}}</span>
           </div>
           <div class="detail">
             <ul>
-              <li>
-                <img src="./e1.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./e2.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./e3.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./e4.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./e5.jpg" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./e6.png" alt="">
-                <p>狗狗餐具</p>
-              </li>
-              <li>
-                <img src="./e7.jpg" alt="">
-                <p>狗狗餐具</p>
+              <li v-for="(item,index) in classy.category[1].items" :key="index">
+                <img :src="item.image">
+                <p>{{item.itemName}}</p>
               </li>
             </ul>
           </div>
@@ -133,16 +44,35 @@
 
 <script>
   import BScroll from 'better-scroll'
+  import {mapState} from 'vuex'
   export default {
-    mounted(){
-      this.$nextTick(function () {
+    data(){
+      return {
+        classifyId: 0
+      }
+    },
+    mounted () {
+      this.$nextTick(() => {
         const wrapper1 = document.querySelector('.menu-wrapper')
-        const wrapper2 = document.querySelector('.detail-list')
-        setTimeout(function () {
-          new BScroll(wrapper1, {click: true})
-          new BScroll(wrapper2, {click: true})
-        }, 200)
+        setTimeout(() => {
+          this.scroll = new BScroll(wrapper1, {click: true})
+        }, 100)
       })
+    },
+    methods: {
+      toggleClaId(index){
+        this.classifyId = index
+        this.$nextTick(() => {
+          const wrapper2 = document.querySelector('.detail-list')
+          setTimeout(() => {
+            this.scroll.refresh()
+            new BScroll(wrapper2, {click: true})
+          }, 10)
+        })
+      }
+    },
+    computed: {
+      ...mapState(['classify'])
     }
   }
 </script>
@@ -163,6 +93,11 @@
         text-align center
         background-color: #fff;
         margin-top 1px
+        span
+          font-size 13px
+      .active
+        color red
+        background-color: #eee;
         span
           font-size 13px
     .detail-list
@@ -194,6 +129,7 @@
               li
                 width 33.3333333%
                 float left
+                height 130px
                 padding 5px
                 img
                   width 100%
@@ -205,4 +141,5 @@
 
         .trademark > .detail > ul > li
           width 50%
+          height 120px
 </style>

@@ -32,7 +32,11 @@
         <div class="surprise_day">
           <div class="surprise_title">
             <div class="titimg"><img src="./suprice.png"></div>
-            <div class="time">距离下一场：12: 10: 55</div>
+            <div class="time">距离下一场：
+              <count-down :currentTime="1481450110" :startTime="1481450110" :endTime="1481455555"
+                          :hourTxt="':'" :minutesTxt="':'"
+                          :secondsTxt="''"></count-down>
+            </div>
             <div class="more"><img src="./more1.png"></div>
           </div>
           <div class="surprise-pro">
@@ -290,6 +294,7 @@
 </template>
 
 <script>
+  import CountDown from 'vue2-countdown'
   import BScroll from 'better-scroll'
   import split from '../../components/split/split.vue'
   export default {
@@ -305,7 +310,8 @@
       })
     },
     components: {
-      split
+      split,
+      CountDown
     }
   }
 </script>
@@ -349,7 +355,8 @@
               img
                 width 105px
             .time
-              margin 4px 0 0 10px
+              display flex
+              margin 4px 0 0 50px
               font-size 14px
             .more
               position absolute

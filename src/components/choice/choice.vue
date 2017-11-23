@@ -17,7 +17,7 @@
         <span>当前地址：{{address.province+'  '+address.city+'  '+address.area}}</span>
       </div>-->
       <div class="choiceAddress">
-        <v-distpicker type="mobile" @selected="onSelected"></v-distpicker>
+        <v-distpicker type="mobile" province="北京市" city="市辖区" area="东城区" @selected="onSelected"></v-distpicker>
       </div>
     </div>
   </div>

@@ -1,11 +1,6 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <div class="wrap">
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </div>
     <div class="footer">
       <ul class="footerNav">
         <router-link :to="route.path" v-for="(route,index) in routes" :key="index">
@@ -15,6 +10,11 @@
           </li>
         </router-link>
       </ul>
+    </div>
+    <div class="wrap">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
   </div>
 </template>

@@ -6,7 +6,7 @@
           <div>
             <router-link to="/home"><span class="icon-arrow_lift left"></span></router-link>
           </div>
-          <div><span>注册</span></div>
+          <div @click="showRegister"><span>注册</span></div>
         </div>
         <div class="middle">
           <img src="./logo.png" alt="">
@@ -40,20 +40,29 @@
         </ul>
       </div>
     </div>
+    <register v-show="register"></register>
   </div>
 </template>
 
 <script>
+  import register from '../../components/register/register.vue'
   export default {
-    data(){
+    data () {
       return {
-        toggle: true
+        toggle: true,
+        register: false
       }
     },
     methods: {
       toggleShow(toggle){
         this.toggle = toggle
+      },
+      showRegister(){
+        this.register = !this.register
       }
+    },
+    components: {
+      register
     }
   }
 </script>

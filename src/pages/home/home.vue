@@ -329,6 +329,7 @@
         width 100%
         padding-bottom 20px
         .carousel
+          width 100%
           height 150px
           overflow hidden
           img

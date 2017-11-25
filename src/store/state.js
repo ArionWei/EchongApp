@@ -1,3 +1,5 @@
 export default {
-  classify: []
+  home: {},
+  classify: [],
+  category: []
 }

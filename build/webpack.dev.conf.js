@@ -14,6 +14,8 @@ const app = express()
 //加载json数据
 var apiData = require('../src/mock/data.json')
 var classify = apiData.classify;
+var home = apiData.home;
+var category = apiData.category;
 //得到路由器
 var apiRouter = express.Router()
 //启用路由器
@@ -21,7 +23,7 @@ app.use('/api', apiRouter)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
+    rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap, usePostCSS: true})
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
@@ -31,8 +33,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     clientLogLevel: 'warning',
     historyApiFallback: true,
     hot: true,
-    host: process.env.HOST || config.dev.host,
-    port: process.env.PORT || config.dev.port,
+    host: process.env.HOST || config.dev.host,
+    port: process.env.PORT || config.dev.port,
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay ? {
       warnings: false,
@@ -49,6 +51,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         res.json({
           code: 0,
           data: classify
+        })
+      })
+
+      app.get('/api/home', (req, res) => {
+        res.json({
+          code: 0,
+          data: home
+        })
+      })
+
+      app.get('/api/category', (req, res) => {
+        res.json({
+          code: 0,
+          data: category
         })
       })
     }
@@ -86,8 +102,8 @@ module.exports = new Promise((resolve, reject) => {
           messages: [`Your application is running here: http://${config.dev.host}:${port}`],
         },
         onErrors: config.dev.notifyOnErrors
-        ? utils.createNotifierCallback()
-        : undefined
+          ? utils.createNotifierCallback()
+          : undefined
       }))
 
       resolve(devWebpackConfig)

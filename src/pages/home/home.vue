@@ -3,28 +3,21 @@
     <div class="home_warp">
       <div class="container">
         <div class="carousel">
-          <mt-swipe :auto="3000">
-            <mt-swipe-item><img src="./caro1.jpg"></mt-swipe-item>
-            <mt-swipe-item><img src="./caro2.jpg"></mt-swipe-item>
-            <mt-swipe-item><img src="./caro3.jpg"></mt-swipe-item>
-            <mt-swipe-item><img src="./caro4.jpg"></mt-swipe-item>
-            <mt-swipe-item><img src="./caro5.jpg"></mt-swipe-item>
-            <mt-swipe-item><img src="./caro6.jpg"></mt-swipe-item>
+          <mt-swipe :auto="3000" v-if="home.datas">
+            <!--{{home}}-->
+            <mt-swipe-item v-for="(item,index) in home.datas[0].value" :key="index">
+              <img :src="item.image">
+            </mt-swipe-item>
           </mt-swipe>
         </div>
         <split></split>
-        <div class="classification">
+        <div class="classification" v-if="home.datas">
           <ul class="brandList1">
-            <li><a href="javascript:;"><img src="./nav1.png"></a></li>
-            <li><a href="javascript:;"><img src="./nav2.png"></a></li>
-            <li><a href="javascript:;"><img src="./nav3.png"></a></li>
-            <li><a href="javascript:;"><img src="./nav4.png"></a></li>
-          </ul>
-          <ul class="brandList2">
-            <li><a href="javascript:;"><img src="./nav5.jpg"></a></li>
-            <li><a href="javascript:;"><img src="./nav6.png"></a></li>
-            <li><a href="javascript:;"><img src="./nav7.jpg"></a></li>
-            <li><a href="javascript:;"><img src="./nav8.png"></a></li>
+            <li v-for="(menu,index) in home.datas[1].menus" :key="index">
+              <a :href="menu.target">
+                <img :src="menu.image">
+              </a>
+            </li>
           </ul>
         </div>
         <split></split>
@@ -122,156 +115,92 @@
           </div>
         </div>
         <!--热门栏目-->
-        <div class="currency">
+        <div class="currency" v-if="home.datas">
           <div class="currencyImg">
-            <img src="./curreny1.jpg" alt="">
+            <img src="./curreny1.jpg">
           </div>
           <div class="divimg">
-            <div class="b1"><img src="./b1.jpg"></div>
+            <div class="b1"><img :src="home.datas[2].content_images[0].image"></div>
             <div class="b2">
-              <img src="./b2.png">
-              <img src="./b2.png">
+              <img :src="home.datas[2].content_images[1].image">
+              <img :src="home.datas[2].content_images[2].image">
             </div>
           </div>
         </div>
         <split></split>
         <!--潮品视频-->
-        <div class="custom">
+        <div class="custom" v-if="home.datas">
           <div class="titmoudle">
             <img src="./c2.png" alt="">
             <a href="javascript:;"><img class="more" src="./more1.png"></a>
           </div>
           <div class="fashion">
             <div class="cmVideoList">
-              <img src="./d1.jpg" alt="">
+              <a :href="home.datas[3].link">
+                <img :src="home.datas[3].content_images">
+              </a>
             </div>
             <div class="content">
-              <p>夜空中最亮的星</p>
+              <p>{{home.datas[3].title}}</p>
               <span class="icon-eye"></span>
-              <span> 7397 </span>
+              <span> {{home.datas[3].visited}} </span>
               <span class="ml10 mr10"> | </span>
-              <span> 02:20 </span>
+              <span> {{home.datas[3].time}} </span>
             </div>
           </div>
         </div>
         <split></split>
         <!--体验馆-->
-        <div class="custom">
+        <div class="custom" v-if="home.datas">
           <div class="titmoudle">
             <img src="./c3.png" alt="">
             <a href="javascript:;"><img class="more" src="./more1.png"></a>
           </div>
           <div class="fashion">
             <div class="cmVideoList">
-              <img src="./d2.jpg" alt="">
+              <img :src="home.datas[4].content_images">
             </div>
           </div>
         </div>
         <split></split>
         <!--品牌特卖-->
-        <div class="custom">
+        <div class="custom" v-if="home.datas">
           <div class="titmoudle border">
             <img src="./c4.png" alt="">
             <a href="javascript:;"><img class="more" src="./more1.png"></a>
           </div>
-          <div class="singlediv">
+          <div class="singlediv" v-for="(item,index) in home.datas[5].content" :key="index">
             <div class="soleImg">
               <p>
-                <span class="p1">谷登新品</span>
-                <span class="p2">5折限量</span>
+                <span class="p1">{{item.title}}</span>
+                <span class="p2">{{item.sub_title}}</span>
               </p>
             </div>
-            <img src="./d4.jpg" alt="">
-          </div>
-          <div class="singlediv">
-            <div class="soleImg">
-              <p>
-                <span class="p1">谷登新品</span>
-                <span class="p2">5折限量</span>
-              </p>
-            </div>
-            <img src="./d5.jpg" alt="">
-          </div>
-          <div class="singlediv">
-            <div class="soleImg">
-              <p>
-                <span class="p1">谷登新品</span>
-                <span class="p2">5折限量</span>
-              </p>
-            </div>
-            <img src="./d6.jpg" alt="">
-          </div>
-          <div class="singlediv">
-            <div class="soleImg">
-              <p>
-                <span class="p1">谷登新品</span>
-                <span class="p2">5折限量</span>
-              </p>
-            </div>
-            <img src="./d7.jpg" alt="">
+            <img :src="item.content_images" alt="">
           </div>
         </div>
         <!--口碑评价-->
-        <div class="judgediv">
+        <div class="judgediv" v-if="home.datas">
           <div class="judgedivTit">
             <img src="./c5.png" alt="">
             <p>
-              <span>好评率99.99%</span>
+              <span>{{home.datas[6].right_text}}</span>
               <span></span>
             </p>
           </div>
           <div class="judgedivLis">
             <ul>
-              <li>
+              <li v-for="(item,index) in home.datas[6].list" :key="index">
                 <div class="judgeImg">
-                  <img src="./z1.jpg" alt="">
-                  <div class="judgeMask">加入E宠2年2个月</div>
+                  <img :src="item.main_image">
+                  <div class="judgeMask">{{item.join_time}}</div>
                 </div>
                 <div class="judgeContent">
                   <div class="name">
-                    <span class="username">鲍***美</span>
-                    <span class="pet-name">博美</span>
+                    <span class="username">{{item.username}}</span>
+                    <span class="pet-name">{{item.pet_des}}</span>
                   </div>
-                  <p>快递费哈师大浩丰，科技阿达是否贷款是否会，收到卡积分换大法师打发空间撒，都会返回发的时刻发挥</p>
-                </div>
-              </li>
-              <li>
-                <div class="judgeImg">
-                  <img src="./z2.jpg" alt="">
-                  <div class="judgeMask">加入E宠2年2个月</div>
-                </div>
-                <div class="judgeContent">
-                  <div class="name">
-                    <span class="username">鲍***美</span>
-                    <span class="pet-name">博美</span>
-                  </div>
-                  <p>快递费哈师大浩丰，科技阿达是否贷款是否会，收到卡积分换大法师打发空间撒，都会返回发的时刻发挥</p>
-                </div>
-              </li>
-              <li>
-                <div class="judgeImg">
-                  <img src="./z3.jpg" alt="">
-                  <div class="judgeMask">加入E宠2年2个月</div>
-                </div>
-                <div class="judgeContent">
-                  <div class="name">
-                    <span class="username">鲍***美</span>
-                    <span class="pet-name">博美</span>
-                  </div>
-                  <p>快递费哈师大浩丰，科技阿达是否贷款是否会，收到卡积分换大法师打发空间撒，都会返回发的时刻发挥</p>
-                </div>
-              </li>
-              <li>
-                <div class="judgeImg">
-                  <img src="./z4.jpg" alt="">
-                  <div class="judgeMask">加入E宠2年2个月</div>
-                </div>
-                <div class="judgeContent">
-                  <div class="name">
-                    <span class="username">鲍***美</span>
-                    <span class="pet-name">博美</span>
-                  </div>
-                  <p>快递费哈师大浩丰，科技阿达是否贷款是否会，收到卡积分换大法师打发空间撒，都会返回发的时刻发挥</p>
+                  <p>{{item.comment_content}}</p>
                 </div>
               </li>
             </ul>
@@ -294,20 +223,27 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import CountDown from 'vue2-countdown'
   import BScroll from 'better-scroll'
   import split from '../../components/split/split.vue'
+
   export default {
     mounted(){
-      this.$nextTick(function () {
-        const wrapper1 = document.querySelector('.home_warp')
-        const wrapper2 = document.querySelector('.surprise-pro')
+      this.$store.dispatch('getHome', () => {
+        this.$nextTick(function () {
+          const wrapper1 = document.querySelector('.home_warp')
+          const wrapper2 = document.querySelector('.surprise-pro')
 
-        setTimeout(() => {
-          new BScroll(wrapper1, {click: true, swipeTime: 1000})
-          new BScroll(wrapper2, {scrollX: true, click: true})
-        }, 0)
+          setTimeout(() => {
+            new BScroll(wrapper1, {click: true, swipeTime: 1000})
+            new BScroll(wrapper2, {scrollX: true, click: true})
+          }, 500)
+        })
       })
+    },
+    computed: {
+      ...mapState(['home']),
     },
     components: {
       split,
@@ -318,9 +254,10 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .home
-    width 100%
-    height 100%
-    transform translate3d()
+    position: absolute
+    top: 86px
+    bottom: 45px
+    width: 100%
     .home_warp
       width 100%
       height 100%
@@ -330,7 +267,7 @@
         padding-bottom 20px
         .carousel
           width 100%
-          height 150px
+          height 160px
           overflow hidden
           img
             width 100%
@@ -357,7 +294,7 @@
                 width 105px
             .time
               display flex
-              margin 4px 0 0 50px
+              margin 4px 0 0 30px
               font-size 14px
             .more
               position absolute
@@ -473,6 +410,7 @@
               li
                 padding 10px
                 width 50%
+                height 380px
                 float left
                 background: #f5f5f5;
                 overflow hidden
@@ -511,10 +449,14 @@
                     line-height 20px
                   p
                     padding-top 8px
-                    height 60px
+                    height 90px
                     line-height 20px
                     font-size 12px
                     color #7e8c8d
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 4;
+                    overflow hidden
         .wap-footer-bar
           width 100%
           height 60px

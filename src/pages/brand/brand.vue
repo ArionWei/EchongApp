@@ -1,45 +1,47 @@
 <template>
-  <div class="brands">
-    <div class="menu-wrapper">
-      <ul>
-        <li :class="{active:classifyId == index}" v-for="(classy,index) in classify" :key="index"
-            @click="toggleClaId(index)">
-          <span>{{classy.name}}</span>
-        </li>
-      </ul>
-    </div>
-    <div class="detail-list">
-      <div class="detail-wrap" v-for="(classy,index) in classify" v-if="classifyId == index" :key="index">
-        <div class="detail-brand common">
-          <div class="title">
-            <span>{{classy.category[0].name}}</span>
-            <img src="./cate_right_img.png">
+  <transition name="moveFromLeft">
+    <div class="brands">
+      <div class="menu-wrapper">
+        <ul>
+          <li :class="{active:classifyId == index}" v-for="(classy,index) in classify" :key="index"
+              @click="toggleClaId(index)">
+            <span>{{classy.name}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="detail-list">
+        <div class="detail-wrap" v-for="(classy,index) in classify" v-if="classifyId == index" :key="index">
+          <div class="detail-brand common">
+            <div class="title">
+              <span>{{classy.category[0].name}}</span>
+              <img src="./cate_right_img.png">
+            </div>
+            <div class="detail" v-if="classy.category[0]">
+              <ul>
+                <li v-for="(item,index) in classy.category[0].items" :key="index">
+                  <img :src="item.image">
+                  <p>{{item.itemName}}</p>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="detail" v-if="classy.category[0]">
-            <ul>
-              <li v-for="(item,index) in classy.category[0].items" :key="index">
-                <img :src="item.image">
-                <p>{{item.itemName}}</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="trademark common" v-if="classy.category[1]">
-          <div class="title">
-            <span>{{classy.category[1].name}}</span>
-          </div>
-          <div class="detail">
-            <ul>
-              <li v-for="(item,index) in classy.category[1].items" :key="index">
-                <img :src="item.image">
-                <p>{{item.itemName}}</p>
-              </li>
-            </ul>
+          <div class="trademark common" v-if="classy.category[1]">
+            <div class="title">
+              <span>{{classy.category[1].name}}</span>
+            </div>
+            <div class="detail">
+              <ul>
+                <li v-for="(item,index) in classy.category[1].items" :key="index">
+                  <img :src="item.image">
+                  <p>{{item.itemName}}</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -67,7 +69,7 @@
           setTimeout(() => {
             this.scroll.refresh()
             new BScroll(wrapper2, {click: true})
-          }, 10)
+          }, 100)
         })
       }
     },
@@ -78,6 +80,13 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .moveFromLeft-enter-active, .moveFromLeft-leave-active
+    transition: all .2s linear
+
+  .moveFromLeft-enter, .moveFromLeft-leave-active
+    opacity 0
+    transform: translateX(-100%)
+
   .brands
     position absolute
     display flex
@@ -128,11 +137,12 @@
               overflow hidden
               li
                 width 33.3333333%
+                text-align center
                 float left
                 height 130px
                 padding 5px
                 img
-                  width 100%
+                  height 60px
                 p
                   margin-top 10px
                   width 100%

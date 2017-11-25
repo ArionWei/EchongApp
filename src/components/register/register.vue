@@ -9,36 +9,41 @@
         <a class="next" :class="bgc" aria-disabled="true" @click="message(bgc)">下一步</a>
       </div>
     </div>
-    <div class="registerForm" v-if="toggleShow == false">
-      <div class="importMsg">
-        <span class="icon-smile"></span>
-        <input type="text" v-model="phoneNum" disabled>
+    <transition name="moveFromBottom">
+      <div class="registerForm" v-if="toggleShow == false">
+        <div class="importMsg">
+          <span class="icon-smile"></span>
+          <input type="text" v-model="phoneNum" disabled>
+        </div>
+        <div class="importMsg">
+          <span class="icon-smile"></span>
+          <input type="text" placeholder="图片验证码" v-model="imgCode">
+        </div>
+        <div class="importMsg">
+          <span class="icon-smile"></span>
+          <input type="text" placeholder="短信验证码" v-model="phoneCode">
+          <input class="shotMsg" type="button" value="获取短信验证码">
+        </div>
+        <div class="importMsg">
+          <span class="icon-smile"></span>
+          <input type="text" ref="userName" placeholder="你的昵称/用户名" v-model.lazy="userName">
+          <span class="error" ref="userName"></span>
+        </div>
+        <div class="importMsg">
+          <span class="icon-smile"></span>
+          <input type="password" placeholder="请设置密码" v-model.lazy="password">
+          <span ref="password" class="error"></span>
+        </div>
+        <div class="importMsg">
+          <span class="icon-smile"></span>
+          <input type="password" placeholder="请确认密码" v-model.lazy="confirmPwd">
+          <span ref="confirmPwd" class="error"></span>
+        </div>
+        <div class="btn">
+          <a class="next" :class="bgc" aria-disabled="true" @click="message(bgc)">下一步</a>
+        </div>
       </div>
-      <div class="importMsg">
-        <span class="icon-smile"></span>
-        <input type="text" placeholder="图片验证码" v-model="imgCode">
-      </div>
-      <div class="importMsg">
-        <span class="icon-smile"></span>
-        <input type="text" placeholder="短信验证码" v-model="phoneCode">
-        <input class="shotMsg" type="button" value="获取短信验证码">
-      </div>
-      <div class="importMsg">
-        <span class="icon-smile"></span>
-        <input type="text" placeholder="你的昵称/用户名" v-model="userName">
-      </div>
-      <div class="importMsg">
-        <span class="icon-smile"></span>
-        <input type="password" placeholder="请设置密码" v-model="password">
-      </div>
-      <div class="importMsg">
-        <span class="icon-smile"></span>
-        <input type="password" placeholder="请确认密码" v-model="confirmPwd">
-      </div>
-      <div class="btn">
-        <a class="next" :class="bgc" aria-disabled="true" @click="message(bgc)">下一步</a>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -65,13 +70,37 @@
             break
           case 'primary':
             this.toggleShow = false
+            break
         }
       }
     },
     watch: {
       phoneNum (data) {
-        let reg = /^1[34578]\d{9}$/
-        this.bgc = reg.test(data) ? 'primary' : (data != '' ? 'warning' : '')
+        let phoneNumReg = /^1[34578]\d{9}$/
+        this.bgc = phoneNumReg.test(data) ? 'primary' : (data != '' ? 'warning' : '')
+      },
+      userName(data){
+        let usernameReg = /^[a-zA-Z0-9_-]{4,16}$/
+        if (!usernameReg.test(data)) {
+          this.$refs.userName.innerHTML = '用户名输入有误！'
+        } else {
+          this.$refs.userName.innerHTML = ''
+        }
+      },
+      password(data){
+        let passwordReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/
+        if (!passwordReg.test(data)) {
+          this.$refs.password.innerHTML = '密码输入格式不正确！'
+        } else {
+          this.$refs.password.innerHTML = ''
+        }
+      },
+      confirmPwd(data){
+        if (this.password != data) {
+          this.$refs.confirmPwd.innerHTML = '两次输入密码不一致！'
+        } else {
+          this.$refs.confirmPwd.innerHTML = ''
+        }
       }
     }
   }
@@ -125,6 +154,10 @@
           background-color: green;
         .warning
           background-color: lightcoral;
+    .moveFromBottom-enter-active, .moveFromBottom-leave-active
+      transition: all .2s linear
+    .moveFromBottom-enter, .moveFromBottom-leave-active
+      transform: translateY(100%)
     .registerForm
       position absolute
       left 0
@@ -139,13 +172,16 @@
         line-height 45px
         padding 0 10px
         border-bottom 1px solid #ddd
+        .error
+          color red
+          font-size 12px
         .shotMsg
-          float right
-          margin-top 10px
+          width 120px
+          height 25px
           background-color: lightsalmon;
-          padding 3px 10px
           border-radius 10px
           color white
+          font-size 14px
         input[disabled]
           background-color #fff
         span

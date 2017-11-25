@@ -6,3 +6,13 @@ Mock.mock('/api/classify', {
   code: 0,
   data: data.classify
 })
+
+Mock.mock('/api/home', {
+  code: 0,
+  data: data.home
+})
+
+Mock.mock('/api/category', {
+  code: 0,
+  data: data.category
+})

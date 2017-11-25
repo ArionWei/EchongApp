@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <app-header></app-header>
+  <div class="app">
+    <app-header/>
     <div class="footer">
       <ul class="footerNav">
         <router-link :to="route.path" v-for="(route,index) in routes" :key="index">
@@ -11,11 +11,9 @@
         </router-link>
       </ul>
     </div>
-    <div class="wrap">
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </div>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -28,11 +26,10 @@
           {icon: 'icon-home', path: '/home', title: '首页'},
           {icon: 'icon-list', path: '/classify', title: '分类'},
           {icon: 'icon-cart', path: '/shopCart', title: '购物车'},
-          {icon: 'icon-smile', path: '/user', title: '我的E宠'},
+          {icon: 'icon-smile', path: '/user', title: '我的E宠'}
         ]
       }
     },
-    methods: {},
     components: {
       "app-header": header
     }
@@ -40,17 +37,12 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  #app
+  .app
     max-width 640px
     margin auto
     height 100%
     position relative
     overflow hidden
-    .wrap
-      position: absolute
-      top: 86px
-      bottom: 45px
-      width: 100%
     .footer
       width 100%
       height 45px

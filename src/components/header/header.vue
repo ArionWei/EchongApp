@@ -20,14 +20,12 @@
       <div class="headerBottom">
         <div class="nav">
           <ul class="navList">
-            <li class="active"><a href="javascript:;"><span>首页</span></a>
+            <li v-for="(menu,index) in home.menus" :key="index" :class="menuId===index?'active':''"
+                @click="toggleMenuId(index)">
+              <a href="javascript:;">
+                <span>{{menu.menu_name}}</span>
+              </a>
             </li>
-            <li><a href="javascript:;"><span>服饰城</span></a></li>
-            <li><a href="javascript:;"><span>狗狗主粮</span></a></li>
-            <li><a href="javascript:;"><span>医疗保健</span></a></li>
-            <li><a href="javascript:;"><span>零食玩具</span></a></li>
-            <li><a href="javascript:;"><span>日出外用</span></a></li>
-            <li><a href="javascript:;"><span>美容香波</span></a></li>
           </ul>
         </div>
       </div>
@@ -37,6 +35,7 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import PubSub from 'pubsub-js'
   import BScroll from 'better-scroll'
   import choice from '../../components/choice/choice.vue'
@@ -45,10 +44,15 @@
       return {
         isShow: false,
         province: '北京市',
-        animal: '狗狗站'
+        animal: '狗狗站',
+        menuId: 0
       }
     },
     mounted(){
+      let address = JSON.parse(localStorage.getItem("address_key") || '{}')
+      if (address.province) {
+        this.province = address.province
+      }
       PubSub.subscribe('setAddress', (msg, data) => {
         this.province = data.province
       })
@@ -67,7 +71,13 @@
       },
       toggleAnimal(animal){
         this.animal = animal
+      },
+      toggleMenuId(index){
+        this.menuId = index
       }
+    },
+    computed: {
+      ...mapState(['home'])
     },
     components: {
       choice
@@ -141,6 +151,6 @@
                 color #666;
               &.active span
                 display inline-block
-                color #459d36
+                color lightseagreen
 
 </style>

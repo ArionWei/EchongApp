@@ -15,7 +15,7 @@ Vue.component(Button.name, Button);
 Vue.component(Field.name, Field);
 
 new Vue({
-  el: '#app',
+  el: '#root',
   render: h => h(App),
   router,  // 配置路由器
   store //配置vuex

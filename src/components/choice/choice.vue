@@ -1,26 +1,29 @@
 <template>
-  <div class="choice">
-    <div class="choiceWrap">
-      <div class="choiceHeader">
-        <div @click="toggleShow(false)">
-          <span class="icon-arrow_lift left"></span>
+  <transition name="fade">
+    <div class="choice">
+      <div class="choiceWrap">
+        <div class="choiceHeader">
+          <div @click="toggleShow(false)">
+            <span class="icon-arrow_lift left"></span>
+          </div>
+          <div><span>选择收获地址</span></div>
+          <div><span class="icon-home right"></span></div>
         </div>
-        <div><span>选择收获地址</span></div>
-        <div><span class="icon-home right"></span></div>
-      </div>
-      <div class="choiceAni">
-        <mt-button size="small" :type="'猫猫站'==animal?'primary':'default'" @click="changeAni('猫猫站')">猫猫站</mt-button>
-        <mt-button size="small" :type="'狗狗站'==animal?'primary':'default'" @click="changeAni('狗狗站')">狗狗站</mt-button>
-        <mt-button size="small" :type="'水族馆'==animal?'primary':'default'" @click="changeAni('水族馆')">水族馆</mt-button>
-      </div>
-      <!--<div class="currentAddress">
-        <span>当前地址：{{address.province+'  '+address.city+'  '+address.area}}</span>
-      </div>-->
-      <div class="choiceAddress">
-        <v-distpicker type="mobile" province="北京市" city="市辖区" area="东城区" @selected="onSelected"></v-distpicker>
+        <div class="choiceAni">
+          <mt-button size="small" :type="'猫猫站'==animal?'primary':'default'" @click="changeAni('猫猫站')">猫猫站</mt-button>
+          <mt-button size="small" :type="'狗狗站'==animal?'primary':'default'" @click="changeAni('狗狗站')">狗狗站</mt-button>
+          <mt-button size="small" :type="'水族馆'==animal?'primary':'default'" @click="changeAni('水族馆')">水族馆</mt-button>
+        </div>
+        <!--<div class="currentAddress">
+          <span>当前地址：{{address.province + '  ' + address.city + '  ' + address.area}}</span>
+        </div>-->
+        <div class="choiceAddress">
+          <v-distpicker type="mobile" :province="address.province" :city="address.city" :area="address.area"
+                        @selected="onSelected"></v-distpicker>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -28,7 +31,7 @@
   export default {
     data () {
       return {
-        address: {},
+        address: {province: '北京市', city: '市辖区', area: '昌平区'},
         animal: '狗狗站'
       }
     },
@@ -38,6 +41,13 @@
       toggleAnimal: Function
     },
 
+    mounted(){
+      let address = JSON.parse(localStorage.getItem("address_key") || '{}')
+      if (address.province) {
+        this.address = address
+      }
+    },
+
     methods: {
       onSelected(data) {
         let address = {
@@ -45,9 +55,12 @@
           city: data.city.value,
           area: data.area.value
         }
+
+        localStorage.setItem('address_key', JSON.stringify(address))
+
         setTimeout(() => {
           this.toggleShow(false)
-        },500)
+        }, 500)
         this.address = address
         PubSub.publish('setAddress', {province: data.province.value});
       },
@@ -64,6 +77,12 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .fade-enter-active, .fade-leave-active
+    transition: opacity .4s
+
+  .fade-enter, .fade-leave-to
+    opacity: 0
+
   .choice
     position fixed
     top 0
@@ -94,11 +113,11 @@
         .mint-button
           width 90px
           margin 0 10px
-      .currentAddress
+      /*.currentAddress
         padding 0 15px
         height 40px
         line-height 40px
-        background-color lightgoldenrodyellow
+        background-color lightgoldenrodyellow*/
 
       .choiceAddress
         position absolute

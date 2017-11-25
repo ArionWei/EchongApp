@@ -17,7 +17,7 @@ export default {
       if (result.code == RESULT_OK) {
         const home = result.data
         commit(RECEIVE_HOME, {home})
-        cb || cb()
+        cb()
       }
     })
   },
@@ -27,7 +27,7 @@ export default {
       if (result.code == RESULT_OK) {
         const category = result.data
         commit(RECEIVE_CATEGORY, {category})
-        cb || cb()
+        cb()
       }
     })
   }

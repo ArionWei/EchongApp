@@ -257,7 +257,7 @@
     position: absolute
     top: 86px
     bottom: 45px
-    width: 100%
+	width 100%
     .home_warp
       width 100%
       height 100%

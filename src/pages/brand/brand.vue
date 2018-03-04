@@ -97,6 +97,7 @@
     .menu-wrapper
       flex 0 0 70px
       li
+		width 100%
         height 50px
         line-height 50px
         text-align center
